@@ -4,11 +4,13 @@ import os
 from sys import argv
 import tensorflow as tf
 import visualkeras
+from PIL import ImageFont
+
 # import needed libs
 
 EPOCHS = 10 
-IMG_WIDTH = 200
-IMG_HEIGHT = 200
+IMG_WIDTH = 150
+IMG_HEIGHT = 150
 NUM_CATEGORIES = 5
 
 """
@@ -32,17 +34,20 @@ def main():
     print("Loading training data...")
     ximg, xlab = load_data(x)  # load training images
     print("Successfuly loaded training data!")
-    print("Loading testing data...")
-    yimg, ylab = load_data(y)  # load testing images
     print("Done loading data!")
     print("Preparing to train neural network...")
     xlab = tf.keras.utils.to_categorical(xlab)
-    ylab = tf.keras.utils.to_categorical(ylab)
     xtrain, xlabel = np.array(ximg), np.array(xlab)
-    ytest, ylabel = np.array(yimg), np.array(ylab)
     model = get_model()  
-    visualkeras.layered_view(model)
+    font = ImageFont.truetype("Roboto-Thin.ttf", 32)
+    visualkeras.layered_view(model, to_file='output.png', legend=True, font=font, draw_volume=False)
     model.fit(xtrain, xlabel, epochs=EPOCHS) # get the model to train
+    print("Loading testing data...")
+    print("Done loading data!")
+
+    yimg, ylab = load_data(y)  # load testing images
+    ylab = tf.keras.utils.to_categorical(ylab)
+    ytest, ylabel = np.array(yimg), np.array(ylab)
     model.evaluate(ytest,  ylabel, verbose=2)  # test the model to check how well it did
     if len(argv) == 4:  # save function
         filename = argv[3]
@@ -71,14 +76,13 @@ def load_data(data_dir):
 def get_model():  # get the model
     model1 = tf.keras.models.Sequential([
         tf.keras.layers.Conv2D(
-            50, (5, 5), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
+            50, (10, 10), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
         ),
-        tf.keras.layers.MaxPooling2D(pool_size=(4, 4)),
+        tf.keras.layers.MaxPooling2D(pool_size=(10, 10)),
         tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(350, activation="relu"),
-        tf.keras.layers.Dropout(0.25),
-        tf.keras.layers.Dense(150, activation="relu"),
-        tf.keras.layers.Dense(80, activation="relu"),
+        tf.keras.layers.Dense(50, activation="relu"),
+        tf.keras.layers.Dropout(0.30),
+        tf.keras.layers.Dense(25, activation="relu"),
         tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
     ])
     CHOSEN = model1
