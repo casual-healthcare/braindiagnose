@@ -1,24 +1,34 @@
 import cv2
 import numpy as np
 import os
-import sys
+from sys import argv
 import tensorflow as tf
-
+import visualkeras
 # import needed libs
 
-EPOCHS = 10  # number of times to run the training program on every img
-IMG_WIDTH = 150
-IMG_HEIGHT = 150
-NUM_CATEGORIES = 2
+EPOCHS = 10 
+IMG_WIDTH = 200
+IMG_HEIGHT = 200
+NUM_CATEGORIES = 5
+
+"""
+===== KEY =====
+1. Glioma
+2. Meningioma
+3. No tumor
+4. Pituitary
+===============
+"""
+
 
 
 def main():
-    if len(sys.argv) not in [3, 4]:
+    if len(argv) not in [3, 4]:
         x = "train"
         y = "test"
     else:
-        x = sys.argv[1]
-        y = sys.argv[2]
+        x = argv[1]
+        y = argv[2]
     print("Loading training data...")
     ximg, xlab = load_data(x)  # load training images
     print("Successfuly loaded training data!")
@@ -31,10 +41,11 @@ def main():
     xtrain, xlabel = np.array(ximg), np.array(xlab)
     ytest, ylabel = np.array(yimg), np.array(ylab)
     model = get_model()  
+    visualkeras.layered_view(model)
     model.fit(xtrain, xlabel, epochs=EPOCHS) # get the model to train
     model.evaluate(ytest,  ylabel, verbose=2)  # test the model to check how well it did
-    if len(sys.argv) == 4:  # save function
-        filename = sys.argv[3]
+    if len(argv) == 4:  # save function
+        filename = argv[3]
         confirm = input("Save? ")
         if confirm.lower() != "n" and confirm.lower() != "no":
             model.save(filename)
@@ -49,7 +60,7 @@ def load_data(data_dir):
     for folder in os.listdir(os.path.join(data_dir)):
         for filename in os.listdir(os.path.join(data_dir, str(folder))):     # for every images
             img = cv2.imread(os.path.join(data_dir, str(folder), filename))
-            # print(img.shape)  # turn this on if you want to see every image's shape
+            #print(img.shape)  # turn this on if you want to see every image's shape
             img = cv2.resize(img, size)  # resize the images
             if img is not None:
                 images.append(img)
@@ -58,29 +69,26 @@ def load_data(data_dir):
 
 
 def get_model():  # get the model
-    model = tf.keras.models.Sequential([
+    model1 = tf.keras.models.Sequential([
         tf.keras.layers.Conv2D(
-            50, (3, 3), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
+            50, (5, 5), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
         ),
-        tf.keras.layers.MaxPooling2D(pool_size=(3, 3)),
-        tf.keras.layers.Conv2D(
-            50, (2, 2), activation="relu"
-        ),
-        tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+        tf.keras.layers.MaxPooling2D(pool_size=(4, 4)),
         tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(100, activation="relu"),
-        tf.keras.layers.Dense(60, activation="relu"),
-        tf.keras.layers.Dropout(0.35),
-        tf.keras.layers.Dense(30, activation="relu"),
+        tf.keras.layers.Dense(350, activation="relu"),
+        tf.keras.layers.Dropout(0.25),
+        tf.keras.layers.Dense(150, activation="relu"),
+        tf.keras.layers.Dense(80, activation="relu"),
         tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
     ])
-    model.compile(
+    CHOSEN = model1
+    CHOSEN.compile(
         optimizer="adam",
-        loss="sparse_categorical_crossentropy",
+        loss="categorical_crossentropy",
         metrics=["accuracy"]
     )
-    model.summary()
-    return model
+    CHOSEN.summary()
+    return CHOSEN
 
 
 if __name__ == "__main__":  # run program
