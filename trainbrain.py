@@ -1,4 +1,4 @@
-import cv2
+from cv2 import imread, resize
 import numpy as np
 import os
 from sys import argv
@@ -64,9 +64,9 @@ def load_data(data_dir):
     size = (IMG_WIDTH, IMG_HEIGHT)
     for folder in os.listdir(os.path.join(data_dir)):
         for filename in os.listdir(os.path.join(data_dir, str(folder))):     # for every images
-            img = cv2.imread(os.path.join(data_dir, str(folder), filename))
+            img = imread(os.path.join(data_dir, str(folder), filename))
             #print(img.shape)  # turn this on if you want to see every image's shape
-            img = cv2.resize(img, size)  # resize the images
+            img = resize(img, size)  # resize the images
             if img is not None:
                 images.append(img)
                 labels.append(folder)
