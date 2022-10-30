@@ -40,7 +40,7 @@ def main():
     xtrain, xlabel = np.array(ximg), np.array(xlab)
     model = get_model()  
     font = ImageFont.truetype("Roboto-Thin.ttf", 32)
-    visualkeras.layered_view(model, to_file='output.png', legend=True, font=font, draw_volume=False)
+    visualkeras.layered_view(model, to_file='output.png', legend=True, font=font, draw_volume=False, spacing=100)
     model.fit(xtrain, xlabel, epochs=EPOCHS) # get the model to train
     print("Loading testing data...")
     print("Done loading data!")
