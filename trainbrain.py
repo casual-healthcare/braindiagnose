@@ -78,7 +78,7 @@ def get_model():  # get the model
         tf.keras.layers.Conv2D(
             50, (10, 10), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
         ),
-        tf.keras.layers.MaxPooling2D(pool_size=(10, 10)),
+        tf.keras.layers.MaxPooling2D(pool_size=(5, 5)),
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(50, activation="relu"),
         tf.keras.layers.Dropout(0.30),
