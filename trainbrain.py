@@ -156,7 +156,7 @@ def get_model():  # get the model
         tf.keras.layers.Dense(50, activation="relu"),
         tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
     ])
-    CHOSEN = model8
+    CHOSEN = model7
     CHOSEN.compile(
         optimizer="adam",
         loss="categorical_crossentropy",
