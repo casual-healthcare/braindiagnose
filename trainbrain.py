@@ -40,7 +40,7 @@ def main():
     xtrain, xlabel = np.array(ximg), np.array(xlab)
     model = get_model()  
     font = ImageFont.truetype("Roboto-Thin.ttf", 32)
-    visualkeras.layered_view(model, to_file='output.png', legend=True, font=font, draw_volume=False, spacing=100)
+    visualkeras.layered_view(model, to_file='output5.png', legend=True, font=font, draw_volume=False, spacing=100)
     model.fit(xtrain, xlabel, epochs=EPOCHS) # get the model to train
     print("Loading testing data...")
     print("Done loading data!")
@@ -85,7 +85,54 @@ def get_model():  # get the model
         tf.keras.layers.Dense(25, activation="relu"),
         tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
     ])
-    CHOSEN = model1
+    model2 = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(
+            25, (10, 10), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
+        ),
+        tf.keras.layers.MaxPooling2D(pool_size=(5, 5)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(50, activation="relu"),
+        tf.keras.layers.Dropout(0.30),
+        tf.keras.layers.Dense(25, activation="relu"),
+        tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
+    ])
+    model3 = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(
+            25, (10, 10), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
+        ),
+        tf.keras.layers.MaxPooling2D(pool_size=(5, 5)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(100, activation="relu"),
+        tf.keras.layers.Dense(50, activation="relu"),
+        tf.keras.layers.Dropout(0.30),
+        tf.keras.layers.Dense(25, activation="relu"),
+        tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
+    ])
+    model4 = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(
+            25, (10, 10), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
+        ),
+        tf.keras.layers.MaxPooling2D(pool_size=(3, 3)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(100, activation="relu"),
+        tf.keras.layers.Dense(50, activation="relu"),
+        tf.keras.layers.Dropout(0.30),
+        tf.keras.layers.Dense(25, activation="relu"),
+        tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
+    ])
+    model5 = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(
+            25, (10, 10), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
+        ),
+        tf.keras.layers.MaxPooling2D(pool_size=(3, 3)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(100, activation="relu"),
+        tf.keras.layers.Dense(50, activation="relu"),
+        tf.keras.layers.Dropout(0.35),
+        tf.keras.layers.Dense(25, activation="relu"),
+        tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
+    ])
+    CHOSEN = model5
     CHOSEN.compile(
         optimizer="adam",
         loss="categorical_crossentropy",
