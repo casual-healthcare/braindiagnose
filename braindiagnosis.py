@@ -25,4 +25,12 @@ classification = model.predict(
             [img.reshape(1, 150, 150, 3)]
 )
 diagnosis = classification.argmax()
-print(diagnosis)
+if diagnosis == 1:
+    print("This seems to be a malignant tumor in the brain. A malignant tumor is a cancerous tumor with abnormal cells that will grow rapidly and spread to other tissues. This can cause a veirtey of side effects.")
+elif diagnosis == 2:
+    print("This seems to be a benign tumor. A benign tumor is a growth of cells in the brain, and slowly spreads. They don't usually cause problems, however, they can become large and create pressure in the brain, which can be harmful.")
+elif diagnosis == 3:
+    print("No tumor detected.")
+else:
+    print("This seems to be a pituitary tumor, which is a tumor that forms in your pituitary gland. Most of these tumors are noncancerous. However, these tumors can cause the pituitary gland to act abnormally, which can lead to many problems such as too many hormones being created in the body.")
+print("-----------------------------------------------------------------")
