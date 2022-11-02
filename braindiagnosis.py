@@ -24,17 +24,17 @@ def main():
         print("-----------------------------------------------------------------")
         print("RESULTS")
         for i in range(len(images)):
-            img = images[i]
+            img = images[i][0]
             img = np.array(img)
             classification = model.predict(
                         [img.reshape(1, 150, 150, 3)]
             )
             diagnosis = classification.argmax()
-            print(f"Image {i+1}:", end=' ')
+            print(images[i][1] + ":", end=' ')
             if diagnosis == 1:
-                print("This seems to be a malignant tumor in the brain. A malignant tumor is a cancerous tumor with abnormal cells that will grow rapidly and spread to other tissues. This can cause a veirtey of side effects.")
+                print("This seems to be a malignant tumor in the brain. A malignant tumor is a cancerous tumor with abnormal cells that will grow rapidly and spread to other tissues. This can cause a variety of side effects, and is one of the most dangerous types of brain tumors..")
             elif diagnosis == 2:
-                print("This seems to be a benign tumor. A benign tumor is a growth of cells in the brain, and slowly spreads. They don't usually cause problems, however, they can become large and create pressure in the brain, which can be harmful.")
+                print("This seems to be a benign tumor. A benign tumor is a overgrowth of normal cells in the brain that shouldn't be there, and the mass of cells slowly spreads. These types of tumors don't usually cause problems, but they can become large and create pressure in the brain, which can be harmful.")
             elif diagnosis == 3:
                 print("No tumor detected.")
             else:
@@ -47,7 +47,7 @@ def waitforimages(foldername, trashbin):
                 img = cv2.imread(os.path.join(foldername, file))
                 img = cv2.resize(img, size)
                 if img is not None:
-                    images.append(img)
+                    images.append((img, file))
             except:
                 print("error")
                 pass
@@ -55,5 +55,5 @@ def waitforimages(foldername, trashbin):
                 shutil.move(os.path.join(foldername, file), trashbin)
         if len(images) > 0:
             return images
-        sleep(2)
+        sleep(1.3)
 main()
