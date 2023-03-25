@@ -1,8 +1,6 @@
 # braindiagnose
 An independent study to assess the usage of deep learning artificial intelligence (convolutional neural networks) in the field of medical image analysis (brain tumors and cancers).
 
-The entire documentation of this website can be found here: LINK
-
 Conducted by Azhaan Salam
 # Setup
 1. [Install Python3](https://realpython.com/installing-python/)
