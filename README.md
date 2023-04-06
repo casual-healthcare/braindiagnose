@@ -1,7 +1,7 @@
 # braindiagnose
 An independent study to assess the usage of deep learning artificial intelligence (convolutional neural networks) in the field of medical image analysis (brain tumors and cancers). 
 
-This specific artificial intelligence model is able to evaluate brain magnetic resonance imaging (MRI) scans to detect the presence of brain tumors / cancers.
+This specific neural network is able to evaluate brain magnetic resonance imaging (MRI) scans to detect the presence of brain tumors / cancers.
 
 Created by Azhaan Salam
 # Setup
