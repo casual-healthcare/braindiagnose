@@ -25,6 +25,7 @@ The model is now setup and ready for use.
 3. To execute the diagnosis program, run `python braindiagnosis.py model.h5 [INPUT_FOLDER] [OUTPUT_FOLDER]`, replacing `[INPUT_FOLDER]` and `[OUTPUT_FOLDER]` with the path to your input and output folders.
 
 4. Move the scans into the `input` folder
+
 The program will then output its diagnosis, and move each image into the output folder.
 
 
