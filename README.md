@@ -12,7 +12,9 @@ Created by Azhaan Salam
 3. On your terminal, execute `pip install -r requirements.txt` to install the packages necessary to using this program.
 
 4. To create and train the model, execute `python trainbrain.py train test model.h5` and wait for training to complete.
+    
     The model is being trained on the `train` data split, and its accuracy is being evaluated on the `test` data split. Afterwards, it gets saved into a file named `model.h5`
+    
     When prompted, confirm if you want to save the model or not.
 
 The model is now setup and ready for use.
