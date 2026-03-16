@@ -4,6 +4,8 @@ An independent study to assess the usage of deep learning artificial intelligenc
 This specific neural network is able to evaluate brain magnetic resonance imaging (MRI) scans to detect the presence of brain tumors / cancers.
 
 Created by Azhaan Salam
+
+Video outlining the study [https://youtu.be/O2-2yklAblk](here)
 # Setup
 1. [Install Python3](https://realpython.com/installing-python/)
 
